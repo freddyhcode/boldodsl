@@ -2,24 +2,13 @@
 
 A domain-specific language for defining database schemas.
 
-## Data Types
-
-```text
-int
-string
-decimal
-boolean
-date
-datetime
-```
-
 ## Syntax
 
 ```text
 database ecommerce {
 
     table users {
-        id: int primary key
+        id: int primary key increment
         username: string
         age: int
         balance: decimal not null

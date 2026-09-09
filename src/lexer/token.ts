@@ -1,37 +1,40 @@
 export enum TokenType {
   // Keywords
-  Database = "database",
-  Table = "table",
-  Ref = "ref",
-  Primary = "primary",
-  Key = "key",
-  Unique = "unique",
-  Not = "not",
-  Null = "null",
-  One = "one",
-  Many = "many",
+  DATABASE = "DATABASE",
+  TABLE = "TABLE",
+  REF = "REF",
+  PRIMARY = "PRIMARY",
+  KEY = "KEY",
+  UNIQUE = "UNIQUE",
+  NOT = "NOT",
+  NULL = "NULL",
+  INCREMENT = "INCREMENT",
+  ONE = "ONE",
+  MANY = "MANY",
 
   // Types
-  Int = "int",
-  String = "string",
-  Decimal = "decimal",
-  Boolean = "boolean",
-  Date = "date",
-  DateTime = "datetime",
+  INT = "INT",
+  STRING = "STRING",
+  DECIMAL = "DECIMAL",
+  BOOLEAN = "BOOLEAN",
+  DATE = "DATE",
+  DATETIME = "DATETIME",
 
   // Identifiers
-  Identifier = "identifier",
+  IDENTIFIER = "IDENTIFIER",
 
   // Symbols
-  LBrace = "{",
-  RBrace = "}",
-  Colon = ":",
-  Dot = ".",
-  Minus = "-",
-  Greater = ">",
+  LBRACE = "LBRACE",
+  RBRACE = "RBRACE",
+  COLON = "COLON",
+  DOT = "DOT",
+  MINUS = "MINUS",
+  GREATER = "GREATER",
+  ARROW = "ARROW",
 
   // Special
-  EOF = "eof",
+  NOT_SUPPORTED = "NOT_SUPPORTED",
+  EOF = "EOF",
 }
 
 export type Token = {

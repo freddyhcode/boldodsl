@@ -1,42 +1,46 @@
 import { describe, it, expect } from "vitest";
 import { Token, TokenType } from "../src/lexer/token.js";
 
-describe("token.ts", () => {
-  it("creates a token correctly", () => {
+describe("Tests token.ts", () => {
+  it("should create a token correctly", () => {
     const token: Token = {
-      type: TokenType.Database,
+      type: TokenType.DATABASE,
       lexeme: "database",
     };
 
-    expect(token.type).toBe(TokenType.Database);
+    expect(token.type).toBe(TokenType.DATABASE);
     expect(token.lexeme).toBe("database");
   });
 
-  it("defines all token types correctly", () => {
+  it("should define all token types correctly", () => {
     const tokens = [
-      [TokenType.Database, "database"],
-      [TokenType.Table, "table"],
-      [TokenType.Ref, "ref"],
-      [TokenType.Primary, "primary"],
-      [TokenType.Key, "key"],
-      [TokenType.Unique, "unique"],
-      [TokenType.Not, "not"],
-      [TokenType.Null, "null"],
-      [TokenType.One, "one"],
-      [TokenType.Many, "many"],
-      [TokenType.Int, "int"],
-      [TokenType.String, "string"],
-      [TokenType.Decimal, "decimal"],
-      [TokenType.Boolean, "boolean"],
-      [TokenType.Date, "date"],
-      [TokenType.Identifier, "identifier"],
-      [TokenType.LBrace, "{"],
-      [TokenType.RBrace, "}"],
-      [TokenType.Colon, ":"],
-      [TokenType.Dot, "."],
-      [TokenType.Minus, "-"],
-      [TokenType.Greater, ">"],
-      [TokenType.EOF, "eof"],
+      [TokenType.DATABASE, "DATABASE"],
+      [TokenType.TABLE, "TABLE"],
+      [TokenType.REF, "REF"],
+      [TokenType.PRIMARY, "PRIMARY"],
+      [TokenType.KEY, "KEY"],
+      [TokenType.UNIQUE, "UNIQUE"],
+      [TokenType.NOT, "NOT"],
+      [TokenType.NULL, "NULL"],
+      [TokenType.INCREMENT, "INCREMENT"],
+      [TokenType.ONE, "ONE"],
+      [TokenType.MANY, "MANY"],
+      [TokenType.INT, "INT"],
+      [TokenType.STRING, "STRING"],
+      [TokenType.DECIMAL, "DECIMAL"],
+      [TokenType.BOOLEAN, "BOOLEAN"],
+      [TokenType.DATE, "DATE"],
+      [TokenType.DATETIME, "DATETIME"],
+      [TokenType.IDENTIFIER, "IDENTIFIER"],
+      [TokenType.LBRACE, "LBRACE"],
+      [TokenType.RBRACE, "RBRACE"],
+      [TokenType.COLON, "COLON"],
+      [TokenType.DOT, "DOT"],
+      [TokenType.MINUS, "MINUS"],
+      [TokenType.GREATER, "GREATER"],
+      [TokenType.ARROW, "ARROW"],
+      [TokenType.NOT_SUPPORTED, "NOT_SUPPORTED"],
+      [TokenType.EOF, "EOF"],
     ] as const;
 
     tokens.forEach(([tokenType, value]) => {
