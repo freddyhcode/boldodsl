@@ -12,12 +12,15 @@
   "scripts": {
     "build": "tsup",
     "build:minify": "tsup --minify",
+    "dev": "tsx watch ./src/index.debug.ts",
     "test": "vitest",
     "test:run": "vitest run"
   },
   "keywords": [
     "dsl",
     "database",
+    "token",
+    "lexer",
     "schema",
     "parser",
     "ast"
@@ -26,7 +29,8 @@
   "license": "MIT",
   "devDependencies": {
     "tsup": "8.5.1",
-    "typescript": "5.7.3",
+    "tsx": "^4.23.13",
+    "typescript": "^5.7.3",
     "vitest": "^3.2.4"
   }
 }

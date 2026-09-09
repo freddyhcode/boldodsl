@@ -1,10 +1,10 @@
-# Syntax
+import { Lexer } from "./lexer/lexer.js";
 
-```text
+Lexer.debug(`
 database ecommerce {
 
     table users {
-        id: int primary key
+        id: int primary key increment
         username: string
         age: int
         balance: decimal not null
@@ -20,5 +20,5 @@ database ecommerce {
     }
 
     ref orders.user_id -> users.id one:many
-}
-```
+} 
+`);
