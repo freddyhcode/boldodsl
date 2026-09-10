@@ -40,4 +40,6 @@ export enum TokenType {
 export type Token = {
   type: TokenType;
   lexeme: string;
+  line: number;
+  column: number;
 };

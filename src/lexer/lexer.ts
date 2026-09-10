@@ -8,6 +8,8 @@ import { Token, TokenType } from "./token.js";
 export class Lexer {
   private source: string = "";
   private position: number = 0;
+  private line: number = 1;
+  private column: number = 1;
   private readonly WHITESPACE: string = " \t\n\r";
 
   /**
@@ -24,6 +26,8 @@ export class Lexer {
   public init(input: string): void {
     this.source = input;
     this.position = 0;
+    this.line = 1;
+    this.column = 1;
   }
 
   /**
@@ -32,52 +36,54 @@ export class Lexer {
   public nextToken(): Token {
     this.skipWhitespace();
     const char = this.current();
+    const line = this.line;
+    const column = this.column;
 
     if (char == "") {
-      return { type: TokenType.EOF, lexeme: "" };
+      return { type: TokenType.EOF, lexeme: "" , line, column };
     }
 
     if (this.isAlpha(char)) {
       const lexeme = this.readIdentifier();
 
       if (KEYWORDS[lexeme]) {
-        return { type: KEYWORDS[lexeme], lexeme: lexeme };
+        return { type: KEYWORDS[lexeme], lexeme: lexeme, line, column };
       }
 
       if (TYPE_KEYWORDS[lexeme]) {
-        return { type: TYPE_KEYWORDS[lexeme], lexeme: lexeme };
+        return { type: TYPE_KEYWORDS[lexeme], lexeme: lexeme, line, column };
       }
 
-      return { type: TokenType.IDENTIFIER, lexeme: lexeme };
+      return { type: TokenType.IDENTIFIER, lexeme: lexeme, line, column };
     }
 
     switch (char) {
       case "{":
         this.advance();
-        return { type: TokenType.LBRACE, lexeme: "{" };
+        return { type: TokenType.LBRACE, lexeme: "{" , line, column };
       case "}":
         this.advance();
-        return { type: TokenType.RBRACE, lexeme: "}" };
+        return { type: TokenType.RBRACE, lexeme: "}", line, column };
       case ":":
         this.advance();
-        return { type: TokenType.COLON, lexeme: ":" };
+        return { type: TokenType.COLON, lexeme: ":", line, column };
       case ".":
         this.advance();
-        return { type: TokenType.DOT, lexeme: "." };
+        return { type: TokenType.DOT, lexeme: ".", line, column };
       case "-":
         this.advance();
         if (this.current() === ">") {
           this.advance();
-          return { type: TokenType.ARROW, lexeme: "->" };
+          return { type: TokenType.ARROW, lexeme: "->", line, column};
         }
-        return { type: TokenType.MINUS, lexeme: "-" };
+        return { type: TokenType.MINUS, lexeme: "-", line, column };
       case ">":
         this.advance();
-        return { type: TokenType.GREATER, lexeme: ">" };
+        return { type: TokenType.GREATER, lexeme: ">", line, column };
     }
 
     this.advance();
-    return { type: TokenType.NOT_SUPPORTED, lexeme: char };
+    return { type: TokenType.NOT_SUPPORTED, lexeme: char, line, column };
   }
 
   /**
@@ -103,20 +109,37 @@ export class Lexer {
   }
 
   /**
-   * Advances the internal pointer to the next character.
+   * Advances the lexer position and updates line and column.
    */
   private advance(): void {
-    if (this.position < this.source.length) {
-      this.position++;
+    if (this.position >= this.source.length) {
+      return;
     }
+    
+    if (this.current() === "\n") {
+      this.line++;
+      this.column - 1;
+    } else {
+      this.column++;
+    }
+    
+    this.position++;
   }
 
   /**
-   * Skips all whitespace characters (spaces, tabs, newlines).
+   * Skips whitespace and comments.
    */
   private skipWhitespace(): void {
-    while (this.current() !== "" && this.WHITESPACE.includes(this.current())) {
-      this.advance();
+    while (this.current() !== "") {
+      if (this.WHITESPACE.includes(this.current())) {
+        this.advance();
+      } else if (this.current() === "#") {
+        while (this.current() !== "" && this.current() !== "\n") {
+          this.advance();
+        }
+      } else {
+        break;
+      }
     }
   }
 
@@ -132,7 +155,7 @@ export class Lexer {
   }
 
   /**
-   * Reads a full alphabetical identifier/word from the source.
+   * Reads an identifier and normalizes it to lowercase.
    */
   private readIdentifier(): string {
     let identifier: string = "";
@@ -140,6 +163,6 @@ export class Lexer {
       identifier += this.current();
       this.advance();
     }
-    return identifier;
+    return identifier.toLowerCase();
   }
 }

@@ -7,6 +7,7 @@ A domain-specific language for defining database schemas.
 ```text
 database ecommerce {
 
+    # This is a comment
     table users {
         id: int primary key increment
         username: string
