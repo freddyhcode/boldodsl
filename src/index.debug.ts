@@ -3,7 +3,7 @@ import { Lexer } from "./lexer/lexer.js";
 Lexer.debug(`
 database ecommerce {
 
-    # comment
+    # This is a comment
     table users {
         id: int primary key increment
         username: string

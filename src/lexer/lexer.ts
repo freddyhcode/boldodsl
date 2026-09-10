@@ -118,7 +118,7 @@ export class Lexer {
     
     if (this.current() === "\n") {
       this.line++;
-      this.column - 1;
+      this.column = 1;
     } else {
       this.column++;
     }
