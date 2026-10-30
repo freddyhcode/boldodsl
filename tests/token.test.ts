@@ -6,6 +6,8 @@ describe("Tests token.ts", () => {
     const token: Token = {
       type: TokenType.DATABASE,
       lexeme: "database",
+      line: 1,
+      column: 1,
     };
 
     expect(token.type).toBe(TokenType.DATABASE);

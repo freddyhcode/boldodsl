@@ -155,11 +155,18 @@ export class Lexer {
   }
 
   /**
+   * Checks if a character is a digit.
+   */
+  private isNumber(char: string): boolean {
+    return char >= "0" && char <= "9";
+  }
+
+  /**
    * Reads an identifier and normalizes it to lowercase.
    */
   private readIdentifier(): string {
     let identifier: string = "";
-    while (this.isAlpha(this.current())) {
+    while (this.isAlpha(this.current()) || this.isNumber(this.current())) {
       identifier += this.current();
       this.advance();
     }
