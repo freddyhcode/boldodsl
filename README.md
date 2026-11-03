@@ -31,10 +31,10 @@ import { Lexer, Parser } from "boldodsl";
 
 const source = `
 database ecommerce {
-    table users {
-        id: int primary key increment
-        username: string not null
-    }
+  table users {
+    id: int primary key increment
+    username: string not null
+  }
 }
 `;
 
@@ -51,21 +51,21 @@ The formal grammar is available in [docs/grammar.md](docs/grammar.md).
 ```boldo
 database ecommerce {
 
-    # Users table
-    table users {
-        id: int primary key increment
-        username: string not null
-        email: string unique
-    }
+  # Users table
+  table users {
+    id: int primary key increment
+    username: string not null
+    email: string unique
+  }
 
-    # Orders table
-    table orders {
-        id: int primary key increment
-        user_id: int not null
-        total: decimal
-    }
+  # Orders table
+  table orders {
+    id: int primary key increment
+    user_id: int not null
+    total: decimal
+  }
 
-    ref orders.user_id -> users.id many:one
+  ref orders.user_id -> users.id many:one
 }
 ```
 

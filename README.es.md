@@ -24,21 +24,21 @@ La gramática formal está en [docs/grammar.es.md](docs/grammar.es.md).
 ```boldo
 database ecommerce {
 
-    # Tabla de usuarios
-    table users {
-        id: int primary key increment
-        username: string not null
-        email: string unique
-    }
+  # Tabla de usuarios
+  table users {
+    id: int primary key increment
+    username: string not null
+    email: string unique
+  }
 
-    # Tabla de pedidos
-    table orders {
-        id: int primary key increment
-        user_id: int not null
-        total: decimal
-    }
+  # Tabla de pedidos
+  table orders {
+    id: int primary key increment
+    user_id: int not null
+    total: decimal
+  }
 
-    ref orders.user_id -> users.id many:one
+  ref orders.user_id -> users.id many:one
 }
 ```
 
