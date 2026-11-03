@@ -12,7 +12,8 @@
   "scripts": {
     "build": "tsup",
     "build:minify": "tsup --minify",
-    "dev": "tsx watch ./src/index.debug.ts",
+    "debug:lexer": "tsx watch ./src/debug/lexer.debug.ts",
+    "debug:parser": "tsx watch ./src/debug/parser.debug.ts",
     "test": "vitest",
     "test:run": "vitest run"
   },
@@ -27,6 +28,9 @@
   ],
   "author": "freddyhcode",
   "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
   "devDependencies": {
     "tsup": "8.5.1",
     "tsx": "^4.23.13",
