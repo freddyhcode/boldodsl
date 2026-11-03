@@ -15,6 +15,32 @@ Un DSL declarativo para describir esquemas de bases de datos.
 Boldodsl es un lenguaje específico de dominio, cercano a SQL, para describir
 tablas, columnas, restricciones y relaciones.
 
+## Estado
+
+El lexer, el parser y el AST están implementados. El validador semántico y la
+generación de SQL todavía no están implementados.
+
+El lexer no lanza errores. Los caracteres inválidos se convierten en tokens
+`NOT_SUPPORTED`, y el parser reporta los errores de sintaxis como `ParseError`
+con la línea y columna correspondientes.
+
+## Uso
+
+```ts
+import { Lexer, Parser } from "boldodsl";
+
+const source = `
+database ecommerce {
+  table users {
+    id: int primary key increment
+    username: string not null
+  }
+}
+`;
+
+const ast = new Parser(new Lexer(source)).parse();
+```
+
 ## Sintaxis
 
 La gramática formal está en [docs/grammar.es.md](docs/grammar.es.md).
