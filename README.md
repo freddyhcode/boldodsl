@@ -39,7 +39,6 @@ database ecommerce {
 `;
 
 const ast = new Parser(new Lexer(source)).parse();
-console.dir(ast, { depth: null });
 ```
 
 ## Syntax
