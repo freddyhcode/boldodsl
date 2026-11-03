@@ -1,3 +1,6 @@
+/**
+ * Token types produced by the lexer.
+ */
 export enum TokenType {
   // Keywords
   DATABASE = "DATABASE",
@@ -37,6 +40,9 @@ export enum TokenType {
   EOF = "EOF",
 }
 
+/**
+ * Single lexical token with its source position.
+ */
 export type Token = {
   type: TokenType;
   lexeme: string;
