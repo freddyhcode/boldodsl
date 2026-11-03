@@ -6,12 +6,28 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
   "files": [
-    "dist"
+    "dist",
+    "docs"
   ],
+  "sideEffects": false,
   "scripts": {
     "build": "tsup",
     "build:minify": "tsup --minify",
+    "prepack": "npm run build",
+    "prepublishOnly": "npm run test:run",
     "debug:lexer": "tsx watch ./src/debug/lexer.debug.ts",
     "debug:parser": "tsx watch ./src/debug/parser.debug.ts",
     "test": "vitest",
@@ -28,6 +44,14 @@
   ],
   "author": "freddyhcode",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/freddyhcode/boldodsl.git"
+  },
+  "bugs": {
+    "url": "https://github.com/freddyhcode/boldodsl/issues"
+  },
+  "homepage": "https://github.com/freddyhcode/boldodsl#readme",
   "engines": {
     "node": ">=20"
   },
