@@ -27,19 +27,21 @@ column.
 ## Usage
 
 ```ts
-import { Lexer, Parser } from "boldodsl";
+import { BoldoDSL } from "boldodsl";
 
 const source = `
 database ecommerce {
   table users {
     id: int primary key increment
-    username: string not null
   }
 }
 `;
 
-const ast = new Parser(new Lexer(source)).parse();
+const tokens = BoldoDSL.lexer(source);
+const ast = BoldoDSL.parser(source);
 ```
+
+`Lexer` and `Parser` are also exported if you need the classes directly.
 
 ## Syntax
 

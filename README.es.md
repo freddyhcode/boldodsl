@@ -27,19 +27,21 @@ con la línea y columna correspondientes.
 ## Uso
 
 ```ts
-import { Lexer, Parser } from "boldodsl";
+import { BoldoDSL } from "boldodsl";
 
 const source = `
 database ecommerce {
   table users {
     id: int primary key increment
-    username: string not null
   }
 }
 `;
 
-const ast = new Parser(new Lexer(source)).parse();
+const tokens = BoldoDSL.lexer(source);
+const ast = BoldoDSL.parser(source);
 ```
+
+`Lexer` y `Parser` también se exportan si necesitas las clases directamente.
 
 ## Sintaxis
 
