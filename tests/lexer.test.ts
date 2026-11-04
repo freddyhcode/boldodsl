@@ -42,6 +42,18 @@ describe("Tests lexer.ts", () => {
     });
   });
 
+  it("should collect all tokens including EOF", () => {
+    const tokens = new Lexer("database d {}").tokenize();
+
+    expect(tokens.map((token) => token.type)).toEqual([
+      TokenType.DATABASE,
+      TokenType.IDENTIFIER,
+      TokenType.LBRACE,
+      TokenType.RBRACE,
+      TokenType.EOF,
+    ]);
+  });
+
   it("should handle invalid or unexpected characters as NotSupported tokens", () => {
     const input = "a1*";
 

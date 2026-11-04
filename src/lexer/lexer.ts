@@ -90,6 +90,21 @@ export class Lexer {
   }
 
   /**
+   * Collects the remaining tokens, including EOF.
+   */
+  public tokenize(): Token[] {
+    const tokens: Token[] = [];
+    let token: Token;
+
+    do {
+      token = this.nextToken();
+      tokens.push(token);
+    } while (token.type !== TokenType.EOF);
+
+    return tokens;
+  }
+
+  /**
    * Returns the character at the current position, or an empty string if EOF.
    */
   private current(): string {
