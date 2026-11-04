@@ -306,7 +306,12 @@ export class Parser {
    * Throws a ParseError for the current token.
    */
   private fail(message: string): never {
-    throw new ParseError(message, this.current);
+    const detail =
+      this.current.type === TokenType.NOT_SUPPORTED
+        ? `Unexpected character '${this.current.lexeme}'`
+        : message;
+
+    throw new ParseError(detail, this.current);
   }
 
   /**

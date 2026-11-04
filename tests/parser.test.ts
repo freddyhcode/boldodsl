@@ -17,6 +17,20 @@ describe("Tests parser.ts", () => {
     });
   });
 
+  it("should parse a table named constructor", () => {
+    const parser = new Parser(
+      new Lexer("database d { table constructor { id: int } }"),
+    );
+
+    expect(parser.parse().tables[0].name).toBe("constructor");
+  });
+
+  it("should parse a source with a UTF-8 BOM", () => {
+    const parser = new Parser(new Lexer("\uFEFFdatabase d {}"));
+
+    expect(parser.parse().name).toBe("d");
+  });
+
   it("should parse all supported column types", () => {
     const parser = new Parser(
       new Lexer(`
@@ -220,7 +234,7 @@ describe("Tests parser.ts", () => {
     expect(
       () =>
         new Parser(new Lexer("database d { table t { id: int * } }")).parse(),
-    ).toThrow(/Expected '}'/);
+    ).toThrow("Unexpected character '*'");
   });
 
   it("should reject an unclosed table", () => {

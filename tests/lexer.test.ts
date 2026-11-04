@@ -65,4 +65,43 @@ describe("Tests lexer.ts", () => {
     expect(notSupportedTokens.length).toBe(1);
     expect(notSupportedTokens.map((t) => t.lexeme)).toEqual(["*"]);
   });
+
+  it("should tokenize Object.prototype names as identifiers", () => {
+    const lexer = new Lexer("constructor __proto__ __defineGetter__");
+
+    expect(lexer.nextToken().type).toBe(TokenType.IDENTIFIER);
+    expect(lexer.nextToken().type).toBe(TokenType.IDENTIFIER);
+    expect(lexer.nextToken().type).toBe(TokenType.IDENTIFIER);
+  });
+
+  it("should ignore a leading UTF-8 BOM", () => {
+    const lexer = new Lexer("\uFEFFdatabase");
+
+    expect(lexer.nextToken()).toEqual({
+      type: TokenType.DATABASE,
+      lexeme: "database",
+      line: 1,
+      column: 1,
+    });
+  });
+
+  it("should normalize CRLF and CR line endings", () => {
+    const lexer = new Lexer("database\r\nd {\rtable t {} }");
+    const tokens: Token[] = [];
+
+    let currentToken = lexer.nextToken();
+    while (currentToken.type !== TokenType.EOF) {
+      tokens.push(currentToken);
+      currentToken = lexer.nextToken();
+    }
+
+    expect(tokens.find((t) => t.lexeme === "d")).toMatchObject({
+      line: 2,
+      column: 1,
+    });
+    expect(tokens.find((t) => t.lexeme === "table")).toMatchObject({
+      line: 3,
+      column: 1,
+    });
+  });
 });

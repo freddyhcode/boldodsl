@@ -24,7 +24,10 @@ export class Lexer {
    * Sets the source code to be tokenized.
    */
   public init(input: string): void {
-    this.source = input;
+    // Ignore a UTF-8 BOM and normalize CRLF/CR to LF.
+    this.source = input
+      .replace(/^\uFEFF/, "")
+      .replace(/\r\n?/g, "\n");
     this.position = 0;
     this.line = 1;
     this.column = 1;
@@ -46,11 +49,11 @@ export class Lexer {
     if (this.isAlpha(char)) {
       const lexeme = this.readIdentifier();
 
-      if (KEYWORDS[lexeme]) {
+      if (Object.hasOwn(KEYWORDS, lexeme)) {
         return { type: KEYWORDS[lexeme], lexeme: lexeme, line, column };
       }
 
-      if (TYPE_KEYWORDS[lexeme]) {
+      if (Object.hasOwn(TYPE_KEYWORDS, lexeme)) {
         return { type: TYPE_KEYWORDS[lexeme], lexeme: lexeme, line, column };
       }
 
