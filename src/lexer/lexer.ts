@@ -176,19 +176,4 @@ export class Lexer {
     return identifier.toLowerCase();
   }
 
-  /**
-   * Quick debug helper to test the lexer token stream.
-   */
-  public static debug(input: string): void {
-    const lexer = new Lexer();
-    lexer.init(input);
-
-    console.log("===== TOKENS =====");
-    let token: Token;
-    do {
-      token = lexer.nextToken();
-      console.log(token);
-    } while (token.type !== TokenType.EOF);
-  }
-
 }

@@ -5,7 +5,7 @@
 
 import { Lexer } from "../lexer/lexer.js";
 
-Lexer.debug(`
+const source = `
 database ecommerce {
   # This is a comment
   table users {
@@ -24,4 +24,11 @@ database ecommerce {
   }
   ref orders.user_id -> users.id one:many
 }
-`);
+`;
+
+const tokens = new Lexer(source).tokenize();
+
+console.log("===== TOKENS =====");
+for (const token of tokens) {
+  console.log(token);
+}

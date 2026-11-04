@@ -314,17 +314,4 @@ export class Parser {
     throw new ParseError(detail, this.current);
   }
 
-  /**
-   * Quick debug helper to print the parsed AST.
-   */
-  public static debug(source: string): void {
-    try {
-      const ast = new Parser(new Lexer(source)).parse();
-
-      console.log("===== AST =====");
-      console.dir(ast, { depth: null, colors: true });
-    } catch (error) {
-      console.error(error instanceof Error ? error.message : error);
-    }
-  }
 }
